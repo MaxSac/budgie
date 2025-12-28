@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS weather (
+	id SERIAL PRIMARY KEY,
+	ts TIMESTAMP,
+	temp FLOAT,
+	humi FLOAT,
+	CO2 FLOAT
+);

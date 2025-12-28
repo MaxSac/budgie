@@ -1,0 +1,30 @@
+
+services:
+  web:
+    build:
+      context: app
+      target: builder
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from compose is SIGTERM)
+    stop_signal: SIGINT
+    ports: 
+      - '8000:8000'
+
+  db:
+    # build:
+    #   context: db
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=testusr
+      - POSTGRES_PASSWORD=testpwd
+      - POSTGRES_DB=testdb
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
